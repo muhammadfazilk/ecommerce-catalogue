@@ -47,6 +47,7 @@ npm install && npm run dev
 # Set up environment
 cp .env.example .env
 php artisan key:generate
+php artisan storage:link
 
 # DB setup
 php artisan migrate --seed
