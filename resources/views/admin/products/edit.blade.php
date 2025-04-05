@@ -17,7 +17,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data" data-parsley-validate>
                 @method('PUT')
                 @include('admin.products._form', ['buttonText' => 'Update Product'])
             </form>

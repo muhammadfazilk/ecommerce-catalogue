@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- Parsley CSS (optional for better styling) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.css" />
+
     <!-- Bootstrap CSS (v5.3) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -28,10 +31,12 @@
                 <h5 class="text-center">{{ config('app.name', 'E-Commerce') }}</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('admin.dashboard') }}"><i class="bi bi-house"></i> Dashboard</a>
+                        <a class="nav-link active" href="{{ route('admin.dashboard') }}"><i class="bi bi-house"></i>
+                            Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('categories.index') }}"><i class="bi bi-tags"></i> Categories</a>
+                        <a class="nav-link" href="{{ route('categories.index') }}"><i class="bi bi-tags"></i>
+                            Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('products.index') }}"><i class="bi bi-box"></i> Products</a>
@@ -69,6 +74,8 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -17,7 +17,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" data-parsley-validate>
                 @include('admin.products._form', ['buttonText' => 'Create Product'])
             </form>
         </div>
