@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Models\Document;
 use App\Models\Product;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DocumentController extends Controller
 {
@@ -14,7 +16,9 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        $documents = Document::with('product')->latest()->paginate(10);
+
+        return view('admin.documents.index', compact('documents'));
     }
 
     /**
@@ -32,7 +36,7 @@ class DocumentController extends Controller
     public function store(StoreDocumentRequest $request)
     {
         $data = $request->validated();
-        $data['file_path'] = $request->file('file')->store('documents', 'public');
+        $data['file_path'] = $request->file('file_path')->store('documents', 'public');
 
         Document::create($data);
 
@@ -73,6 +77,8 @@ class DocumentController extends Controller
 
     public function download(Document $document)
     {
-        return response()->download(storage_path("app/public/" . $document->file_path));
+        $pdf = Pdf::loadView('pdf.document-template', ['doc' => $document]);
+
+        return $pdf->download(Str::slug($document->title) . '.pdf');
     }
 }

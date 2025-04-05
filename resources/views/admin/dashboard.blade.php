@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container my-5">
-        <h2 class="text-center mb-4">Admin Dashboard</h2>
+        <h2 class="text-center mb-4">Dashboard</h2>
 
         <div class="row g-4">
             <div class="col-md-4">

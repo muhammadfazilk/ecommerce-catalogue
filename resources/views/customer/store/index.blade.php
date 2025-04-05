@@ -1,25 +1,43 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="text-xl font-semibold">Store</h2>
+    </x-slot>
 
-@section('content')
-<div class="container py-5">
-    <h2 class="mb-4 text-center">Explore Products</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <form method="GET" action="{{ route('store.index') }}">
+                <select name="category" class="form-select" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
+                    @foreach($categories as $cat)
+                        <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
+                            {{ $cat->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach($products as $product)
-            <div class="col">
-                <div class="card h-100 shadow-sm">
-                    <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ $product->name }}</h5>
-                        <p class="card-text text-muted">${{ number_format($product->price, 2) }}</p>
-                        <p class="small text-secondary">Stock: {{ $product->stock }}</p>
-                        <a href="{{ route('store.show', $product) }}" class="btn btn-primary mt-auto">
-                            View Product
-                        </a>
+        <div class="col-md-9">
+            <div class="row">
+                @foreach ($products as $product)
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" height="200">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p>${{ $product->price }}</p>
+                                <a href="{{ route('store.products.show', $product) }}" class="btn btn-sm btn-outline-primary">View</a>
+                                <form action="{{ route('cart.add', $product) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button class="btn btn-sm btn-success">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-        @endforeach
+
+            {{ $products->links() }}
+        </div>
     </div>
-</div>
-@endsection
+</x-app-layout>

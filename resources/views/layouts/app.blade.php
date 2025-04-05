@@ -30,26 +30,27 @@
             <div class="p-3">
                 <h5 class="text-center">{{ config('app.name', 'E-Commerce') }}</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('admin.dashboard') }}"><i class="bi bi-house"></i>
-                            Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('categories.index') }}"><i class="bi bi-tags"></i>
-                            Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('products.index') }}"><i class="bi bi-box"></i> Products</a>
-                    </li>
-                    <li class="nav-item">
+                    @if(Auth::check() && Auth::user()->hasRole('admin'))
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ route('admin.dashboard') }}"><i class="bi bi-house"></i>
+                                Dashboard</a>
+                        </li>
+                    @endif
+                    @if ((Auth::check() && Auth::user()->hasRole('admin')) || (Auth::check() && Auth::user()->hasRole('product_manager')))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('categories.index') }}"><i class="bi bi-tags"></i>
+                                Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('products.index') }}"><i class="bi bi-box"></i> Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('documents.index') }}"><i class="bi bi-file-earmark-text"></i> Documents</a>
+                        </li>
+                    @endif
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('orders.index') }}"><i class="bi bi-cart"></i> Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-people"></i> Customers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </nav>

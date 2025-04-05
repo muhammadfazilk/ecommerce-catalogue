@@ -23,8 +23,10 @@ class CartController extends Controller
 
     public function view()
     {
-        $cart = Session::get('cart', []);
-        return view('customer.store.cart', compact('cart'));
+        $cart = session()->get('cart', []);
+        $productIds = array_keys($cart);
+        $products = Product::whereIn('id', $productIds)->get();
+        return view('customer.store.cart', compact('cart', 'products'));
     }
 
     public function remove(Product $product)

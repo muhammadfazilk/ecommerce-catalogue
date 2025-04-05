@@ -25,7 +25,7 @@ class StoreDocumentRequest extends FormRequest
             'title' => 'required|string|max:255',
             'type' => 'required|in:Product Certification,User Manual',
             'issue_date' => 'required|date',
-            'file' => 'required|mimes:pdf|max:5120',
+            'file_path' => 'required|mimes:pdf|max:5120',
             'product_id' => 'required|exists:products,id',
         ];
     }
