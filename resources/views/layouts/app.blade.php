@@ -31,7 +31,7 @@
                         <a class="nav-link active" href="{{ route('admin.dashboard') }}"><i class="bi bi-house"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('products.index') }}"><i class="bi bi-tags"></i> Categories</a>
+                        <a class="nav-link" href="{{ route('categories.index') }}"><i class="bi bi-tags"></i> Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('products.index') }}"><i class="bi bi-box"></i> Products</a>
@@ -71,6 +71,8 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    @stack('scripts')
 </body>
 
 </html>
