@@ -26,7 +26,7 @@ class CustomAuthenticatedSessionController extends Controller
             } elseif ($user->hasRole('product_manager')) {
                 return redirect()->intended('/admin/products');
             } else {
-                return redirect()->intended('/store');
+                return redirect()->intended('/');
             }
         }
 

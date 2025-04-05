@@ -17,7 +17,7 @@ class StorefrontController extends Controller
         }
 
         $products = $query->paginate(8);
-        $categories = Category::all();
+        $categories = Category::whereNotNull('parent_id')->get();
         return view('customer.store.index', compact('products', 'categories'));
     }
 

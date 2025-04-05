@@ -5,35 +5,36 @@
             <div class="flex">
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <a href="{{ route('cart.view') }}" class="relative text-gray-600 hover:text-gray-800">
-                    <svg style="height: 40px; width: 40px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.3 2.6A1 1 0 007 17h10a1 1 0 001-1l1-2M7 13L5.4 5M10 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
-                    </svg>
+            <!-- Right Section: Cart Icon + Sign In/Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6 ml-auto space-x-4">
+                @if (!Auth::check() || (Auth::check() && Auth::user()->hasRole('customer')))
+                    <!-- Cart Icon -->
+                    <a href="{{ route('cart.view') }}" class="relative text-gray-600 hover:text-gray-800">
+                        <svg style="height: 40px; width: 40px;" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.3 2.6A1 1 0 007 17h10a1 1 0 001-1l1-2M7 13L5.4 5M10 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
+                        </svg>
 
-                    @php
-                        $cartCount = session('cart') ? count(session('cart')) : 0;
-                    @endphp
-                    @if ($cartCount > 0)
-                        <span
-                            class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-                            {{ $cartCount }}
-                        </span>
-                    @endif
-                </a>
-            </div>
+                        @php
+                            $cartCount = session('cart') ? count(session('cart')) : 0;
+                        @endphp
+                        @if ($cartCount > 0)
+                            <span
+                                class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                                {{ $cartCount }}
+                            </span>
+                        @endif
+                    </a>
+                @endif
 
-            <!-- Settings Dropdown -->
-            @if (Auth::check() && Auth::user())
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <!-- Auth Options -->
+                @if (Auth::check())
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{ Auth::check() && Auth::user()->name }}</div>
-
+                                <div>{{ Auth::user()->name }}</div>
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20">
@@ -46,21 +47,23 @@
                         </x-slot>
 
                         <x-slot name="content">
-
-                            <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-
                                 <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
                     </x-dropdown>
-                </div>
-            @endif
+                @else
+                    <a href="{{ route('login') }}"
+                        class="text-gray-600 hover:text-gray-800 px-4 py-2 rounded-md border border-gray-300">
+                        {{ __('Sign In') }}
+                    </a>
+                @endif
+            </div>
+
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -85,8 +88,8 @@
         @if (Auth::check() && Auth::user())
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::check() && Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::check() && Auth::user()->email }}</div>
+                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
 
                 <div class="mt-3 space-y-1">

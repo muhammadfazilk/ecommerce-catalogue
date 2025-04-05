@@ -9,16 +9,16 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StorefrontController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/store', [StorefrontController::class, 'index'])->name('store.index');
+Route::get('/', [StorefrontController::class, 'index'])->name('store.index');
 Route::get('/store/product/{product}', [StorefrontController::class, 'show'])->name('store.products.show');
 
 Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
