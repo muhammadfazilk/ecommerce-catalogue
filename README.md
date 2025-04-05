@@ -37,8 +37,8 @@ A simple Laravel 12-based e-commerce application with:
 ## Installation
 
 ```bash
-git clone https://github.com/yourname/laravel-catalog.git
-cd laravel-catalog
+git clone https://github.com/muhammadfazilk/ecommerce-catalogue.git
+cd ecommerce-catalogue
 
 # Install dependencies
 composer install
